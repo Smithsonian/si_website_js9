@@ -105,6 +105,12 @@ directory) before executing a task.  Obviously you can
 use <b>js9Xeq</b> as an example and modify it to suit your needs.
 
 <p>
+NB: for security reasons, the name of the wrapper script should only contain
+alphanumeric and underscore characters. (If you must use other characters,
+set the <b>globalOpts.restrictWrappers</b> param to false in js9Prefs.json,
+but be aware that this disables one of the two exec validity checks.)
+
+<p>
 In either case, note that execution of a wrapper script is
 accomplished by pre-pending the path of the analysis wrapper directory
 to the wrapper script name and executing that full pathname directly.

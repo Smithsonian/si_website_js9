@@ -6,7 +6,7 @@
  * Organization: Center for Astrophysics | Harvard & Smithsonian, Cambridge MA
  * Contact: emandel@cfa.harvard.edu
  *
- * Copyright (c) 2012 - 2022 Smithsonian Astrophysical Observatory
+ * Copyright (c) 2012 - 2024 Smithsonian Astrophysical Observatory
  *
  *
  */
@@ -68,6 +68,7 @@ const globalOpts = {
     cmd:              "js9helper",
     analysisPlugins:  "analysis-plugins",
     analysisWrappers: "analysis-wrappers",
+    restrictWrappers: true,
     helperPlugins:    "helper-plugins",
     dataPathModify:   true,
     fileTranslate:    [],          // file translation, e.g. ["/notebooks/",""]
@@ -705,12 +706,13 @@ const getFileSize = function(file){
 // execCmd: exec a analysis wrapper routine to run a command
 // this is the default callback for server-side analysis tasks
 const execCmd = function(socket, obj, cbfunc) {
-    let cmd, argstr, args, maxbuf, child, s, myid, myrtype;
+    let cmd, tcmd, argstr, args, maxbuf, child, s, myid, myrtype;
     let myworkdir = null;
     const myip = getHost(socket);
     const myenv = process.env;
     const res = {stdout: null, stderr: null, errcode: 0,
 	       encoding: globalOpts.textEncoding};
+    const dangerousCharsRegex = /[^a-zA-Z0-9_]/g;
     // sanity check
     if( !obj || !obj.cmd || !socket.js9 ){
 	if( cbfunc ){
@@ -770,6 +772,17 @@ const execCmd = function(socket, obj, cbfunc) {
 	.replace(/\$\{?JS9_WORKDIR\}?/, (socket.js9.rworkDir || ""));
     // split arguments on spaces, respecting quotes
     args = parseArgs(argstr);
+    // remove dangerous characters from command, if necessary
+    // a second safety check is below, so this is not strictly necessary
+    // (and we can allow it to be turned off for backward compatibility)
+    if( globalOpts.restrictWrappers ){
+	tcmd = args[0];
+	args[0] = args[0].replace(dangerousCharsRegex, "");
+	if( tcmd !== args[0] ){
+	    clog("SECURITY WARNING: ignoring dangerous cmd: '%s'", tcmd);
+	    return;
+	}
+    }
     // handle fitshelper specially
     if( args[0] === globalOpts.cmd ){
 	// if FITS, handle this request internally instead of exec'ing
@@ -804,7 +817,9 @@ const execCmd = function(socket, obj, cbfunc) {
 	// cmd = globalOpts.analysisWrappers + "/" + args[0];
 	// get path of wrapper script
 	cmd = getFilePath(args[0], globalOpts.analysisWrapPath, myenv, false);
-	if( !cmd ){
+	// make sure we got a wrapper (else we're under attack?)
+	if( !cmd || (cmd === args[0]) ){
+	    clog("SECURITY WARNING: ignoring wrapperless cmd: '%s'", args[0]);
 	    if( cbfunc ){
 		res.stderr = `can't find JS9 wrapper script: ${args[0]}`;
 		cbfunc(res);

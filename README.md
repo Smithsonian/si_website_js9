@@ -1,6 +1,8 @@
-**My software career comes to an end on July 1, 2022 and with it will end active development of JS9. Please plan accordingly. Eric**
+**My software career came to an end on 1 July 2022 and with it ended active development of JS9. Please plan accordingly. Eric**
 
-[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.6675771.svg)](https://doi.org/10.5281/zenodo.6675771)
+**Security vulnerability (12/13/2024): a bug in the JS9 Helper, found during a Smithsonian Institution security audit, could allow an attacker to run arbitrary code using the id of the helper. (An attack would be evident in the helper log.) Please install the latest version of JS9, or at least the latest version of js9Helper.js.**
+
+[![DOI](https://zenodo.org/badge/24642171.svg)](https://doi.org/10.5281/zenodo.596052)
 
 [![DeepScan grade](https://deepscan.io/api/teams/12940/projects/15985/branches/329797/badge/grade.svg)](https://deepscan.io/dashboard#view=project&tid=12940&pid=15985&bid=329797)
 
@@ -118,6 +120,8 @@ JS9 is distributed under the terms of The MIT License.
 
 What's the recent release history?
 ----------------------------------
+[![DOI](https://zenodo.org/badge/24642171.svg)](https://doi.org/10.5281/zenodo.596052)  __v3.9.0__ &nbsp; (12/13/2024)
+
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.6675771.svg)](https://doi.org/10.5281/zenodo.6675771)  __v3.8.0__ &nbsp; (06/21/2022)
 
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.6554571.svg)](https://doi.org/10.5281/zenodo.6554571)  __v3.7.0__ &nbsp; (05/16/2022)
