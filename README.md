@@ -1,6 +1,6 @@
-**My software career came to an end on 1 July 2022 and with it ended active development of JS9. Please plan accordingly. Eric**
+**1 July 2022: my software career has come to an end and with it ends active development of JS9. Please plan accordingly. Eric**
 
-**Security vulnerability (12/13/2024): a bug in the JS9 Helper, found during a Smithsonian Institution security audit, could allow an attacker to run arbitrary code using the id of the helper. (An attack would be evident in the helper log.) Please install the latest version of JS9, or at least the latest version of js9Helper.js.**
+**31 December 2024: release v3.9 fixes a security vulnerability (see [issue #100](https://github.com/ericmandel/js9/issues/100)) and puts JS9 into a stable state for archiving. Please consider carefully the wisdom of using a Web-based package that has no maintainer.**
 
 [![DOI](https://zenodo.org/badge/24642171.svg)](https://doi.org/10.5281/zenodo.596052)
 
@@ -29,7 +29,7 @@ What does it do?
 How can I try it out?
 ---------------------
 
-Go to [JS9 web site](https://js9.si.edu) and drag a
+Go to the [JS9 web site](https://js9.si.edu) (assuming it is still live at the Center for Astrophysics) and drag a
 [FITS](https://fits.gsfc.nasa.gov/) data file onto the JS9 display:
 
     https://js9.si.edu
